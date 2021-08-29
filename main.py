@@ -27,7 +27,7 @@ def retorna_possiveis_emails(url):
         i = 0
         while espaco == False:
             #print(grande_linha[index - i])
-            if( grande_linha[index - i] == " " or grande_linha[index - i] == "<" or grande_linha[index - i] == ">" or grande_linha[index - i] == "|" or grande_linha[index - i] == "\\" or grande_linha[index - i] == "/" or grande_linha[index - i] == "'" or grande_linha[index - i] == '"' or grande_linha[index - i] == '[' or grande_linha[index - i] == ']' or grande_linha[index - i] == ')' or grande_linha[index - i] == '(' or grande_linha[index - i] == '^'):
+            if( grande_linha[index - i] == " " or grande_linha[index - i] == "<" or grande_linha[index - i] == ">" or grande_linha[index - i] == "|" or grande_linha[index - i] == "\\" or grande_linha[index - i] == "/" or grande_linha[index - i] == "'" or grande_linha[index - i] == '"' or grande_linha[index - i] == '[' or grande_linha[index - i] == ']' or grande_linha[index - i] == ')' or grande_linha[index - i] == '(' or grande_linha[index - i] == '^' or grande_linha[index - i] == '}' or grande_linha[index - i] == '{' or grande_linha[index - i] == '-' or grande_linha[index - i] == ',' or grande_linha[index - i] == '}' or grande_linha[index - i] == '{' or grande_linha[index - i] == '-' or grande_linha[index - i] == '?' or grande_linha[index - i] == ':' or grande_linha[index - i] == '&' or grande_linha[index - i] == ';'):
                 espaco = True
             else:
                 txt_atual = str(grande_linha[index - i]) + txt_atual
@@ -36,7 +36,7 @@ def retorna_possiveis_emails(url):
         espaco = False
         i = 1
         while espaco == False:
-            if( grande_linha[index + i] == " " or grande_linha[index + i] == "<" or grande_linha[index + i] == ">" or grande_linha[index + i] == "|" or grande_linha[index + i] == "\\" or grande_linha[index + i] == "/" or grande_linha[index + i] == "'" or grande_linha[index + i] == '"' or grande_linha[index + i] == '[' or grande_linha[index + i] == ']' or grande_linha[index + i] == ')' or grande_linha[index + i] == '(' or grande_linha[index + i] == '^'):
+            if( grande_linha[index + i] == " " or grande_linha[index + i] == "<" or grande_linha[index + i] == ">" or grande_linha[index + i] == "|" or grande_linha[index + i] == "\\" or grande_linha[index + i] == "/" or grande_linha[index + i] == "'" or grande_linha[index + i] == '"' or grande_linha[index + i] == '[' or grande_linha[index + i] == ']' or grande_linha[index + i] == ')' or grande_linha[index + i] == '(' or grande_linha[index + i] == '^' or grande_linha[index + i] == '}' or grande_linha[index + i] == '{' or grande_linha[index + i] == '-' or grande_linha[index + i] == ',' or grande_linha[index + i] == '}' or grande_linha[index + i] == '{' or grande_linha[index + i] == '-' or grande_linha[index + i] == '?' or grande_linha[index + i] == ':' or grande_linha[index + i] == '&' or grande_linha[index + i] == ';'):
                 espaco = True
             else:
                 txt_atual = txt_atual + str(grande_linha[index + i])
@@ -46,7 +46,33 @@ def retorna_possiveis_emails(url):
             saidas.append(txt_atual)
     return saidas
 
-emails = retorna_possiveis_emails('https://www.codegrepper.com/code-examples/python/How+to+check+if+a+value+is+an+empty+string+in+python')
+def confirma_email(url):
+    possiveis = retorna_possiveis_emails(url)
+    confirmados = []
+    for email in possiveis:
+        valido = True
+
+        final = email[len(email)-3] + email[len(email)-2] + email[len(email)-1]
+        if(final == "jpg" or final == "png"):
+            valido = False
+        
+        ponto = False
+        for i in range(len(email) -1 ):
+            if email[i] == ".":
+                ponto = True
+        
+        if valido and ponto:
+            confirmados.append(email)
+    
+    return confirmados
+
+
+
+# https://www.magazineluiza.com.br/
+# https://www.bc.sc.gov.br/conteudo.cfm?caminho=oportunidades
+# https://premacar.com.br/
+
+emails = confirma_email('https://premacar.com.br/')
 
 print(emails)
     
